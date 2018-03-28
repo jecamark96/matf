@@ -8,8 +8,8 @@ Programski jezik: Scala, jer je kompatibilna sa Javom u cilju da se ono sto ne s
 
 [English]
 
-Name of project: NeoReborn
+Project name: NeoReborn
 
-This is a student's project for Faculty of Math, University of Belgrade. The goal is to make an editor for working with graphs. The main idea is to help user to create graph with lots of techinuques of making vertices and edges, coping parts of that graph, and erasing them by selecting. Also, it will be added some tools that can check different propeties of graph, for example his planarity or completness. In case of planarity, it will draw new graph which is planar and same as original. Some algorithms for graphs also will be there. So, the purpose of the project is to help students to learn conncepts of graph theory and scientists to check their hypotesis. 
+This is a students' project for Faculty of Math, University of Belgrade. The goal is to make an editor which works with graphs. The main idea is to help the users create graphs with lots of techniques of making vertices and edges, copying parts of that graph, and erasing them by selecting. Also, there will be some tools that can check different properties of the graphs, for example their planarity or completeness. In case of planarity, it will draw a new graph which is planar and isomorphic to original. Some graph algorithms will also be included. So, the purpose of the project is to help students learn concepts of graph theory and scientists to check their hypothesises. 
 
-Programming language: Scala, because it is compatible with Java, and we can continue working on it in Java using this code
+Programming language: Scala, because it is compatible with Java, and we can continue working on the project in Java using this code.
