@@ -34,7 +34,6 @@ class GTC(repPath : String) extends GAction(repPath) {
     }
     if (edgeType == 256) {
       Platform.runLater(() => {
-        graphRep.addNavigator(idxBegin, getDfsColor)
         vertexLb.setText(idxBegin.toString)
         graphRep.repaintVertexReps
         graphRep(idxBegin).setColor(getTcColor)
@@ -73,6 +72,7 @@ class GTC(repPath : String) extends GAction(repPath) {
     try {
       base.transitiveClosure(updateTc)
       Platform.runLater(() => {
+        graphRep.addNavigator(0, getDfsColor)
         graphRep.repaintVertexReps
         reachableList.clear
         vertexLb.setText("")
