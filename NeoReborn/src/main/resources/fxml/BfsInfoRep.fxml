@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="213.0" prefWidth="743.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="78.0" layoutY="51.0" style="-fx-font-size: 14;" text="Starting vertex: " />
+      <Label layoutX="22.0" layoutY="117.0" style="-fx-font-size: 14;" text="Visited: " />
+      <TextField fx:id="vertexLb" alignment="CENTER" layoutX="179.0" layoutY="46.0" prefHeight="29.0" prefWidth="52.0" />
+      <ColorPicker fx:id="visitedColorPick" layoutX="338.0" layoutY="47.0" />
+      <Label layoutX="247.0" layoutY="52.0" style="-fx-font-size: 14;" text="Visited color:" />
+       <ListView fx:id="visitedLw" layoutX="78.0" layoutY="109.0" orientation="HORIZONTAL" prefHeight="32.0" prefWidth="631.0" stylesheets="@../css/main.css" />
+      <ColorPicker fx:id="queuedColorPick" layoutX="577.0" layoutY="47.0" />
+      <Label layoutX="480.0" layoutY="51.0" style="-fx-font-size: 14;" text="Queued color:" />
+      <Label layoutX="15.0" layoutY="158.0" style="-fx-font-size: 14;" text="Queued:" />
+      <ListView fx:id="queuedLw" layoutX="78.0" layoutY="152.0" orientation="HORIZONTAL" prefHeight="32.0" prefWidth="631.0" stylesheets="@../css/main.css" />
+   </children>
+   <stylesheets>
+      <URL value="@../css/main.css" />
+      <URL value="@../css/lw.css" />
+   </stylesheets>
+</AnchorPane>

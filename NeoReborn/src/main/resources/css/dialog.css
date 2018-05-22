@@ -1,0 +1,168 @@
+.dialog-pane {
+    -fx-background-color: #202020;
+}
+
+.* {
+    -fx-background-color: #202020
+    -fx-border-color: #00E000
+}
+
+.label {
+    -fx-text-fill: #00E000;
+    -fx-font-family: "Segoe UI";
+}
+
+.button{
+     -fx-background-radius: 34;
+     -fx-background-color: #202020;
+     -fx-border-radius: 34;
+     -fx-border-color: #00E000;
+     -fx-border-width: 2;
+     -fx-text-fill: #00E000;
+     -fx-font-size: 12px;
+     -fx-font-weight: bold;
+     -fx-font-family: "Segoe UI";
+ }
+
+.button:hover{
+    -fx-background-radius: 34;
+    -fx-background-color: #00E000;
+    -fx-border-color: #00E000;
+    -fx-border-radius: 34;
+    -fx-border-width: 2;
+    -fx-text-fill: #202020;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-font-family: "Segoe UI";
+}
+
+.combo-box-base{
+    -fx-background-color: #202020;
+    -fx-background-radius: 34;
+    -fx-text-base-color: #00E000;
+    -fx-border-color: #00E000;
+    -fx-border-radius: 34;
+    -fx-border-width: 2;
+    -fx-alignment: CENTER;
+}
+
+.combo-box-popup .list-view{
+    -fx-background-color: #202020;
+    -fx-text-base-color: #00E000;
+    -fx-alignment: CENTER;
+}
+
+.combo-box-popup .list-view .list-cell{
+    -fx-background-color: #202020;
+    -fx-background-radius: 34;
+    -fx-text-fill: #00E000;
+    -fx-border-color: #00E000;
+    -fx-border-width: 2;
+    -fx-border-radius: 34;
+}
+
+.combo-box-popup .list-view .list-cell:hover{
+    -fx-background-color: #00E000;
+    -fx-background-radius: 34;
+    -fx-text-fill: #202020;
+    -fx-border-color: #00E000;
+    -fx-border-width: 2;
+    -fx-border-radius: 34;
+}
+
+.text-field {
+    -fx-background-color: #202020;
+    -fx-background-radius: 34;
+    -fx-text-fill: #00E000;
+    -fx-border-color: #00E000;
+    -fx-border-width: 2;
+    -fx-border-radius: 34;
+}
+
+.slider{
+    -fx-background-color: #202020;
+}
+
+.slider .track{
+    -fx-control-inner-background: #202020;
+    -fx-background-radius: 10;
+}
+
+.slider .axis{
+    -fx-tick-label-fill: #00E000;
+}
+
+.slider .thumb{
+    -fx-background-color: #202020;
+    -fx-border-color: #00E000;
+    -fx-border-radius: 100;
+}
+
+.check-box {
+    -fx-background-color: #202020;
+    -fx-text-fill: #00E000;
+}
+
+.check-box .box{
+    -fx-background-color: #202020;
+    -fx-text-fill: #00E000;
+    -fx-border-color: #00E000;
+    -fx-border-radius: 100;
+    -fx-background-radius: 100;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #202020č
+    -fx-text-fill: #00E000;
+    -fx-border-color: #00E000;
+    -fx-border-radius: 100;
+    -fx-background-radius: 100;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: #00E000;
+}
+
+.progress-bar .track {
+    -fx-background-radius: 100;
+    -fx-border-radius: 100;
+    -fx-border-color: #00E000;
+    -fx-background-color: #202020;
+}
+
+.progress-bar .bar {
+    -fx-background-radius: 100;
+    -fx-border-radius: 100;
+    -fx-background-color: #00E000;
+}
+
+
+
+.scroll-bar .thumb {
+  -fx-background-color: #00E000;
+}
+
+.text-area .content{
+    -fx-border-color: #00E000;
+    -fx-background-color: #202020;
+    -fx-border-width: 2;
+}
+
+.text-area {
+    -fx-text-fill: #00E000;
+}
+
+.radio-button{
+    -fx-background-color: #202020;
+    -fx-text-fill: #00E000;
+}
+.radio-button .dot
+{
+    -fx-mark-color: #00E000;
+    -fx-mark-highlight-color: #00E000;
+}
+.radio-button .radio {
+    -fx-background-color: #202020;
+    -fx-border-color: #00E000;
+    -fx-border-radius: 100;
+}

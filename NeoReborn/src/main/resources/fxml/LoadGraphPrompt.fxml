@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainAp" prefHeight="299.0" prefWidth="243.0" style="-fx-background-color: #202020;" stylesheets="@../css/dialog.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="neoreborn.ui.dialog.LoadGraphPrompt">
+   <children>
+      <TextArea fx:id="mainTa" layoutX="9.0" layoutY="55.0" prefHeight="173.0" prefWidth="226.0" style="-fx-background-color: transparent;" wrapText="true">
+         <font>
+            <Font name="Segoe UI" size="12.0" />
+         </font></TextArea>
+      <Button fx:id="loadBtn" layoutX="68.0" layoutY="14.0" mnemonicParsing="false" onAction="#onLoadRequested" text="Load from file" />
+      <Button fx:id="okBtn" layoutX="15.0" layoutY="238.0" mnemonicParsing="false" onAction="#onCreateRequested" prefHeight="33.0" prefWidth="98.0" text="Create" />
+      <Button fx:id="cancelBtn" layoutX="125.0" layoutY="237.0" mnemonicParsing="false" onAction="#onCancelRequested" prefHeight="33.0" prefWidth="96.0" text="Cancel" />
+      <Label fx:id="errorLb" layoutX="6.0" layoutY="277.0" prefHeight="15.0" prefWidth="232.0" style="-fx-text-fill: #E00000; -fx-alignment: CENTER;" />
+   </children>
+</AnchorPane>
