@@ -5,7 +5,7 @@ import javafx.beans.binding.Bindings
 import javafx.beans.property._
 import javafx.fxml.FXMLLoader
 import javafx.scene.control._
-import javafx.scene.layout.AnchorPane
+import javafx.scene.layout.{AnchorPane, StackPane}
 import neoreborn.GraphControl
 import neoreborn.base.Graph
 import neoreborn.ui.GraphRep
@@ -114,8 +114,10 @@ abstract class GAction(repPath : String) extends Runnable{
   def clear = Platform.runLater(() => ctrl.enableEditing)
 
   //select and deselect as current action
-  def select(parent : AnchorPane, actionPane : AnchorPane, executionPane : AnchorPane): Unit =
+  def select(parent : StackPane, actionPane : AnchorPane, executionPane : AnchorPane): Unit =
   {
+    rep.translateXProperty.bind(Bindings.createDoubleBinding(() => (parent.getWidth - rep.getPrefWidth) / 2, parent.widthProperty))
+    rep.translateYProperty.bind(Bindings.createDoubleBinding(() => (parent.getHeight - rep.getPrefHeight) / 2, parent.heightProperty))
     parent.getChildren.add(rep)
     val actionCb : ComboBox[GAction] = actionPane.lookup("#actionCb").asInstanceOf[ComboBox[GAction]]
     val speedSlider : Slider = actionPane.lookup("#speedSlider").asInstanceOf[Slider]
@@ -144,9 +146,11 @@ abstract class GAction(repPath : String) extends Runnable{
     clearBtn.setOnAction(e => clear)
     errorLb.textProperty.bind(errorProperty)
   }
-  def deselect(parent : AnchorPane, actionPane : AnchorPane, executionPane : AnchorPane): Unit =
+  def deselect(parent : StackPane, actionPane : AnchorPane, executionPane : AnchorPane): Unit =
   {
     parent.getChildren.remove(rep)
+    rep.translateXProperty.unbind
+    rep.translateYProperty.unbind
     val actionCb : ComboBox[GAction] = actionPane.lookup("#actionCb").asInstanceOf[ComboBox[GAction]]
     actionCb.disableProperty.unbind
     executionPane.setDisable(true)

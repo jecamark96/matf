@@ -6,6 +6,7 @@ import javafx.scene.layout.AnchorPane
 import javafx.scene.paint.Paint
 import javafx.scene.shape.Circle
 import neoreborn.base.{GVertex, Graph}
+import scala.collection.JavaConverters._
 
 import scala.collection.mutable.{ArrayBuffer, ListBuffer}
 
@@ -18,6 +19,12 @@ class GraphRep(template : AnchorPane, base : Graph) extends AnchorPane {
   setLayoutY(template.getLayoutY)
   setMinHeight(template.getHeight)
   setMinWidth(template.getWidth)
+  AnchorPane.setTopAnchor(this, AnchorPane.getTopAnchor(template))
+  AnchorPane.setBottomAnchor(this, AnchorPane.getBottomAnchor(template))
+  AnchorPane.setLeftAnchor(this, AnchorPane.getLeftAnchor(template))
+  AnchorPane.setRightAnchor(this, AnchorPane.getRightAnchor(template))
+  //widthProperty().addListener((x, o, n) => vertices.map(c => c.setX(c.getX / o.doubleValue * n.doubleValue)))
+  //heightProperty().addListener((x, o, n) => vertices.map(c => c.setY(c.getY / o.doubleValue * n.doubleValue)))
   setStyle(template.getStyle)
 
   //drawing edge flag and value
@@ -61,10 +68,11 @@ class GraphRep(template : AnchorPane, base : Graph) extends AnchorPane {
 
   //reps of edges and methods
   private val edges : ListBuffer[GEdgeRep] = new ListBuffer[GEdgeRep]
-  def addEdgeRep(idx_a : Int, idx_b : Int, weight : Int = 0) : Unit = {
+  def addEdgeRep(idx_a : Int, idx_b : Int, weight : Int = -1) : Unit = {
     val rep = new GEdgeRep(this, this(idx_a), base.isWeighted, base.isDirected, 25)
-    rep.setWeight(weight)
     rep.init("#00E000")
+    if (base.isWeighted)
+      rep.setWeight(weight)
     rep.commit(this(idx_b))
     edges += rep
   }           //adds edge rep from vertex rep idx_a to vertex rep idx_b
@@ -123,7 +131,8 @@ class GraphRep(template : AnchorPane, base : Graph) extends AnchorPane {
   def setNavigatorColor(color : String) = navigator.setFill(Paint.valueOf(color))
   def removeNavigator: Unit =                                                                                 //removes navigator
     {
-      getChildren.remove(navigator)
+      if (getChildren.contains(navigator))
+        getChildren.remove(navigator)
       navigator = null
     }
 
@@ -191,6 +200,7 @@ class GraphRep(template : AnchorPane, base : Graph) extends AnchorPane {
   {
     if (!isDrawingEdge)
       return;
+    if (me.getX < 25 || me.getY < 25 || Math.abs(me.getX - getWidth) < 25 || Math.abs(me.getY - getHeight) < 25) return
     currentDrawnEdge.update(me.getX, me.getY)
     }
   def onEdgeSelectRequested(rep : GEdgeRep, e : MouseEvent): Unit =       //selects edge rep
@@ -205,9 +215,9 @@ class GraphRep(template : AnchorPane, base : Graph) extends AnchorPane {
   def onVertexMouseClicked(rep : GVertexRep, me: MouseEvent): Unit =      //if edge is being drawn commits it to vertex, otherwise selects vertex on left click and starts drawing edge on right click
   {
     if (isDrawingEdge) {
+      base.addEdge(currentDrawnEdge.getSource.getIndex, rep.getIndex)
       currentDrawnEdge.commit(rep)
       edges += currentDrawnEdge
-      base.addEdge(currentDrawnEdge.getSource.getIndex, rep.getIndex)
       isDrawingEdge = false
     }
     else {

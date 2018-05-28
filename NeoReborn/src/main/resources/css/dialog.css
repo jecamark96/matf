@@ -112,7 +112,7 @@
 }
 
 .check-box:selected .box {
-    -fx-background-color: #202020č
+    -fx-background-color: #202020;
     -fx-text-fill: #00E000;
     -fx-border-color: #00E000;
     -fx-border-radius: 100;

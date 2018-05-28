@@ -70,9 +70,9 @@ class GTC(repPath : String) extends GAction(repPath) {
   override def runAction: Unit =
   {
     try {
+      Platform.runLater(() =>graphRep.addNavigator(0, getDfsColor))
       base.transitiveClosure(updateTc)
       Platform.runLater(() => {
-        graphRep.addNavigator(0, getDfsColor)
         graphRep.repaintVertexReps
         reachableList.clear
         vertexLb.setText("")

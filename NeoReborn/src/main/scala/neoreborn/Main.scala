@@ -11,8 +11,8 @@ class Main extends Application {
     primaryStage.setTitle("NeoReborn")
     val root : AnchorPane = new FXMLLoader(getClass.getResource("/fxml/MainWindow.fxml")).load()
     primaryStage.setScene(new Scene(root))
+    primaryStage.setMaximized(true)
     primaryStage.setResizable(false)
-    primaryStage.sizeToScene()
     primaryStage.show()
   }
 }

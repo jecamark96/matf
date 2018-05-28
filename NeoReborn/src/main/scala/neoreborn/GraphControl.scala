@@ -96,11 +96,13 @@ class GraphControl(parent: MainWindow, _idx: Int, base : Graph) extends Object
     adjListView.setItems(null)
     vertexInfoRep.disableProperty.unbind
     vertexLb.setText("No vertex selected")
+    vertexInfoRep.setDisable(true)
 
     val edgeLb : Label = edgeInfoRep.lookup("#edgeInfoLb").asInstanceOf[Label]
     edgeLb.textProperty.unbind
     edgeInfoRep.disableProperty.unbind
     edgeLb.setText("No edge selected")
+    edgeInfoRep.setDisable(true)
   }
 
   //enable editing, disable editing
@@ -153,7 +155,7 @@ class GraphControl(parent: MainWindow, _idx: Int, base : Graph) extends Object
       rep.addVertexRep(x * rep.getMinWidth, y * rep.getMinHeight, idx)
       idx += 1
     } }
-    base.getEdges.map{case(idx_a, idx_b) => rep.addEdgeRep(idx_a, idx_b, if (base.isWeighted) base.getEdgeWeight(idx_a, idx_b) else 0)}
+    base.getEdges.map{case(idx_a, idx_b) => rep.addEdgeRep(idx_a, idx_b, if (base.isWeighted) base.getEdgeWeight(idx_a, idx_b) else -1)}
   }
   def serializeGraph : String =
   {
@@ -166,9 +168,9 @@ class GraphControl(parent: MainWindow, _idx: Int, base : Graph) extends Object
     sb ++= 'C' + System.lineSeparator
     sb ++= base.vertexCountProperty.get + System.lineSeparator
     for (i <- 1 to base.vertexCountProperty.get)
-      sb ++= rep(i - 1).getX / rep.getMinWidth + " " + rep(i - 1).getY / rep.getMinHeight + System.lineSeparator
+      sb ++= rep(i - 1).getX / rep.getWidth + " " + rep(i - 1).getY / rep.getHeight + System.lineSeparator
     sb ++= base.edgeCountProperty.get + System.lineSeparator
-    base.getEdges.map(idx => sb ++= (idx._1 + " " + idx._2 + (if (base.isWeighted) " " + base.getEdgeWeight(idx._1, idx._2).toString else 1) + System.lineSeparator))
+    base.getEdges.map(idx => sb ++= (idx._1 + " " + idx._2 + (if (base.isWeighted) " " + base.getEdgeWeight(idx._1, idx._2).toString else "") + System.lineSeparator))
     return sb.toString
   }
 

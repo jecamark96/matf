@@ -21,9 +21,9 @@ class GEdgeRep(parent: GraphRep, vSrc : GVertexRep, weighted : Boolean = false, 
   private val shaftAngle = Bindings.createDoubleBinding(() => getShaftAngle, shaftRep.startXProperty, shaftRep.endXProperty, shaftRep.startYProperty, shaftRep.startYProperty)
   private def getShaftAngle: Double =         //gets main angle
   {
-    if (shaftRep.startXProperty.get == shaftRep.endXProperty.get)
+    if (src.getX == shaftRep.getEndX)
       return Math.PI / 2
-    return Math.atan((shaftRep.endYProperty.get - shaftRep.startYProperty.get) / (shaftRep.endXProperty.get - shaftRep.startXProperty.get))
+    return Math.atan((shaftRep.getEndY - src.getY) / (shaftRep.getEndX - src.getX))
   }
 
   //arrow head for directed graphs and its angle, length
@@ -34,7 +34,7 @@ class GEdgeRep(parent: GraphRep, vSrc : GVertexRep, weighted : Boolean = false, 
 
   //weight rep and properties
   private val weightRep : TextField = new TextField
-  private val weight : IntegerProperty = new SimpleIntegerProperty(0)
+  private val weight : IntegerProperty = new SimpleIntegerProperty(-1)
   def weightProperty = weight
   def getWeight = weight.get
   def setWeight(value : Int) = weight.set(value)
@@ -47,8 +47,8 @@ class GEdgeRep(parent: GraphRep, vSrc : GVertexRep, weighted : Boolean = false, 
 
   //select, deselect, init, delete
   def init(color : String) {
-    shaftRep.setStartX(src.getX)
-    shaftRep.setStartY(src.getY)
+    shaftRep.startXProperty.bind(src.XProperty)
+    shaftRep.startYProperty.bind(src.YProperty)
     src.toFront
     update(src.getX, src.getY)
     shaftRep.setStrokeWidth(2.0)
@@ -78,8 +78,6 @@ class GEdgeRep(parent: GraphRep, vSrc : GVertexRep, weighted : Boolean = false, 
       weightRep.setPrefWidth(50)
       weightRep.setAlignment(Pos.CENTER)//Paint.valueOf("#00E000"))
       weightRep.setText(weightProperty.get.toString)
-      weightProperty.bind(Bindings.createIntegerBinding(() => try { weightRep.getText.toInt } catch { case _ : Exception => 0}, weightRep.textProperty))
-      weightProperty.addListener((x, o, n) => parent.onEdgeUpdateWeightRequested(this, n.intValue))
       weightRep.setEditable(true)
       weightRep.setCursor(Cursor.DEFAULT)
       weightRep.setEffect(new Glow(0.3))
@@ -130,14 +128,17 @@ class GEdgeRep(parent: GraphRep, vSrc : GVertexRep, weighted : Boolean = false, 
     dest = destVertex
     val x = destVertex.getX
     val y = destVertex.getY
-    val diff_x = x - shaftRep.getStartX
-    val diff_y = y - shaftRep.getStartY
-    val diff = Math.sqrt(diff_x * diff_x + diff_y * diff_y)
-    update(x - diff_x * vertexRadius / diff, y - diff_y * vertexRadius / diff)
+    shaftRep.endXProperty.bind(Bindings.createDoubleBinding(() => dest.getX - (x - src.getX) * vertexRadius / Math.sqrt(Math.pow(x - src.getX, 2) + Math.pow(y - src.getY, 2)), dest.XProperty, src.XProperty, dest.YProperty, src.YProperty))
+    shaftRep.endYProperty.bind(Bindings.createDoubleBinding(() => dest.getY - (y - src.getY) * vertexRadius / Math.sqrt(Math.pow(x - src.getX, 2) + Math.pow(y - src.getY, 2)), dest.XProperty, src.XProperty, dest.YProperty, src.YProperty))
     if (weighted)
     {
-      weightRep.setLayoutX((getDestination.getX + getSource.getX - weightRep.getPrefWidth - Math.sin(getShaftAngle) * 30) / 2)
-      weightRep.setLayoutY((getDestination.getY + getSource.getY - weightRep.getPrefHeight + Math.cos(getShaftAngle) * 30) / 2)
+      weightProperty.addListener((x, o, n) => parent.onEdgeUpdateWeightRequested(this, n.intValue))
+      if (weight.get == -1)
+        weight.set(Math.sqrt(Math.pow(dest.getX - src.getX, 2) + Math.pow(dest.getY - src.getY, 2)).toInt)
+      weightRep.setText(weight.get.toString)
+      weightProperty.bind(Bindings.createIntegerBinding(() => try { weightRep.getText.toInt } catch { case _ : Exception => 0}, weightRep.textProperty))
+      weightRep.translateXProperty.bind(Bindings.createDoubleBinding(() => (getDestination.getX + getSource.getX - weightRep.getPrefWidth - Math.sin(getShaftAngle) * 30) / 2, src.XProperty, dest.XProperty, src.YProperty, dest.YProperty))
+      weightRep.translateYProperty.bind(Bindings.createDoubleBinding(() => (getDestination.getY + getSource.getY - weightRep.getPrefHeight + Math.cos(getShaftAngle) * 30) / 2, src.XProperty, dest.XProperty, src.YProperty, dest.YProperty))
       weightRep.setRotate(getShaftAngle.toDegrees)
       weightRep.setVisible(true)
     }

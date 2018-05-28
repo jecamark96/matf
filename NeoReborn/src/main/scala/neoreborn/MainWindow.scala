@@ -11,7 +11,7 @@ import javafx.fxml.{FXML, FXMLLoader, Initializable}
 import javafx.scene.Scene
 import javafx.scene.control.Alert.AlertType
 import javafx.scene.control._
-import javafx.scene.layout.AnchorPane
+import javafx.scene.layout.{AnchorPane, StackPane}
 import javafx.stage.FileChooser.ExtensionFilter
 import javafx.stage.{FileChooser, Modality, Stage}
 import neoreborn.action._
@@ -47,11 +47,15 @@ class MainWindow extends Initializable {
   @FXML
   var actionAp : AnchorPane = _
   @FXML
-  var actionInfoAp : AnchorPane = _
+  var actionInfoAp : StackPane = _
   @FXML
   var executionAp : AnchorPane = _
   @FXML
   var mainButtonAp : AnchorPane = _
+  @FXML
+  var algoAp: AnchorPane = _
+  @FXML
+  var workAp: AnchorPane = _
 
 
   //selected graph control
@@ -183,6 +187,10 @@ class MainWindow extends Initializable {
   def initialize(url: URL, rb: ResourceBundle): Unit = {
     val actionList : ObservableList[GAction] = FXCollections.observableArrayList[GAction](new GDfs("/fxml/DfsInfoRep.fxml"),
       new GBfs("/fxml/BfsInfoRep.fxml"), new GTC("/fxml/TCInfoRep.fxml"), new GDijkstra("/fxml/DijkstraInfoRep.fxml"))
+    AnchorPane.setTopAnchor(mainAP, 0.0);
+    AnchorPane.setBottomAnchor(mainAP, 0.0);
+    AnchorPane.setLeftAnchor(mainAP, 0.0);
+    AnchorPane.setRightAnchor(mainAP, 0.0);
     actionCb.setItems(actionList)
     actionCb.getSelectionModel.selectedItemProperty.addListener((x, o, n) => {
       if (o != null)
